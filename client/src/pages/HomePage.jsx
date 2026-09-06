@@ -4,6 +4,7 @@ import Navbar from '../components/Navbar';
 import SidebarLeft from '../components/SidebarLeft';
 import SidebarRight from '../components/SidebarRight';
 import ContentCard from '../components/ContentCard';
+import { API_BASE_URL } from '../services/api';
 
 export default function HomePage() {
   const [posts, setPosts] = useState([]);
@@ -32,7 +33,7 @@ export default function HomePage() {
 
   // Fetch categories from backend database
  useEffect(() => {
-  axios.get('http://localhost:5001/api/categories')
+  axios.get(`${API_BASE_URL}/categories`)
     .then((res) => {
       const catArray = Array.isArray(res.data) ? res.data : (res.data?.categories || res.data?.items || []);
       setCategories(catArray);
@@ -44,8 +45,8 @@ export default function HomePage() {
   // Fetch content feed from backend database
 useEffect(() => {
   const url = currentTab.toLowerCase() === 'all'
-    ? 'http://localhost:5001/api/content'
-    : `http://localhost:5001/api/content?category=${currentTab}`;
+    ? `${API_BASE_URL}/content`
+    : `${API_BASE_URL}/content?category=${encodeURIComponent(currentTab)}`;
 
   const token = 
     localStorage.getItem('token') || 

@@ -1,3 +1,4 @@
+import { API_BASE_URL } from '../services/api';
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import { ArrowLeft, Share2, Flag, ThumbsUp, ThumbsDown, Bookmark, Play, Volume2, MessageSquare } from 'lucide-react';
@@ -13,7 +14,7 @@ export default function PostDetail() {
 
   // Fixed endpoint from /api/content/ to /api/posts/ to match backend routes
   useEffect(() => {
-    fetch(`http://localhost:5001/api/posts/${id}`)
+    fetch(`${API_BASE_URL}/api/posts/${id}`)
       .then((res) => {
         if (!res.ok) throw new Error('Content not found');
         return res.json();
@@ -34,7 +35,7 @@ export default function PostDetail() {
     if (!commentText.trim()) return;
     
     const token = localStorage.getItem('token') || localStorage.getItem('access_token');
-    fetch(`http://localhost:5001/api/posts/${id}/comments`, {
+    fetch(`${API_BASE_URL}/api/posts/${id}/comments`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

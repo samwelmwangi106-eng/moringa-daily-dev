@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Heart, Bookmark, Eye, MessageSquare, LogIn, X } from 'lucide-react';
+import { API_BASE_URL } from '../services/api';
 
 export default function ContentCard({ post, onUpdate }) {
   const navigate = useNavigate();
@@ -44,7 +45,7 @@ export default function ContentCard({ post, onUpdate }) {
         localStorage.getItem('jwt') || 
         localStorage.getItem('accessToken');
 
-      const response = await fetch(`http://localhost:5001/api/posts/${postId}/like`, {
+      const response = await fetch(`${API_BASE_URL}/posts/${postId}/like`, {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',

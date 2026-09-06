@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { Search, Bell, ShieldCheck, LogOut, User, Bookmark, Plus } from "lucide-react";
 import { getCurrentUser } from "../services/authApi";
+import { API_BASE_URL } from "../services/api";
 
 export default function Navbar({ searchQuery, setSearchQuery }) {
   const navigate = useNavigate();
@@ -53,7 +54,7 @@ export default function Navbar({ searchQuery, setSearchQuery }) {
   const fetchNotifications = async (isPolling = false) => {
     if (!token) return;
     try {
-      const response = await fetch('http://localhost:5001/api/notifications', {
+      const response = await fetch(`${API_BASE_URL}/notifications`, {
         headers: { 'Authorization': `Bearer ${token}` }
       });
       if (response.ok) {

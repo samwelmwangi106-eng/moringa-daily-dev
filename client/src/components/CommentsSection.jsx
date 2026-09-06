@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { MessageSquare, Send } from 'lucide-react';
+import { API_BASE_URL } from '../services/api';
 
 export default function CommentsSection({ contentId }) {
   const [comments, setComments] = useState([]);
@@ -7,7 +8,7 @@ export default function CommentsSection({ contentId }) {
   const token = localStorage.getItem('token');
 
   useEffect(() => {
-    fetch(`http://localhost:5001/api/content/${contentId}/comments`)
+    fetch(`${API_BASE_URL}/content/${contentId}/comments`)
       .then((res) => res.json())
       .then((data) => setComments(data))
       .catch((err) => console.error('Failed to fetch comments', err));
@@ -18,7 +19,7 @@ export default function CommentsSection({ contentId }) {
     if (!newComment.trim()) return;
 
     try {
-      const res = await fetch(`http://localhost:5001/api/content/${contentId}/comments`, {
+      const res = await fetch(`${API_BASE_URL}/content/${contentId}/comments`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
