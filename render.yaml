@@ -29,6 +29,7 @@ databases:
     databaseName: moringa
     user: moringa
     plan: free
+    region: frankfurt
 
 services:
   - type: web
@@ -55,9 +56,8 @@ services:
         generateValue: true             # generated once, stored by Render
       - key: JWT_SECRET_KEY
         generateValue: true             # generated once, stored by Render
-      # Optional — add your Gemini key in the Render dashboard for AI features:
-      # - key: GEMINI_API_KEY
-      #   sync: false
+      - key: GEMINI_API_KEY
+        sync: false
 
       # REAL password-reset emails (Gmail app password — see
       # backend/.env.example for the 1-minute setup):
